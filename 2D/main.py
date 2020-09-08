@@ -20,7 +20,7 @@ n_inputs = 2 # number of inputs (f1, f2)
 
 # Simulation parameters
 dt = 0.005 # time steps for simulation
-time_end = 2. # duration of simulation
+time_end = 5. # duration of simulation
 t = np.arange(0,time_end+dt,dt)
 n_points = int(time_end/dt)
 states = np.zeros((n_states,n_points)) # states over simulation time
@@ -28,9 +28,9 @@ statesDes = np.zeros((n_states,n_points)) # desired state (default to 0)
 inputs = np.zeros((n_inputs,n_points)) # inputs over simulation time
 
 # Initialization
-drone = Drone(mass,l_f,l_r,h,w)
-state_0 = np.array([5,10,5,5,np.pi/4,3]) # initial state
+state_0 = np.array([5,0,5,0,0,0]) # initial state
 #state_0 = drone.randStart(xMax, yMax) # random initial state with xMax, yMax
+drone = Drone(mass,l_f,l_r,h,w,state_0)
 states[:,0] = state_0
 
 # Set desired states over time
@@ -38,11 +38,11 @@ for i in range(n_points):
     statesDes[:,i]=np.array([10,0,10,0,0,0]) # (go to x=10, y=10, and stay stationary)
 
 # Set gain matrix
-K = np.array([10,1,10]) # PID gain matrix
+K = np.array([1,1,5,5,15,15]) # y, ydot, x, xdot, theta, thetadot
 
-# Solve simulation 
+# Solve simulation
 for i in range(1,len(t)-1):
-    next_u = drone.PID(states[:,i-1],statesDes[:,i-1],K, dt)
+    next_u = drone.feedbackLin(states[:,i-1],statesDes[:,i-1],K, dt)
     next_state = drone.update(states[:,i-1],next_u,dt)
     states[:,i]=next_state
 
