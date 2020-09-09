@@ -31,4 +31,4 @@ def animate(states, drone, dt, time_end):
 
     ani = animation.FuncAnimation(fig, draw, n_points-1, init_func = initPlot, blit=True,interval=10,repeat = True)
     plt.show()
-    ani.save('feedbackLin.gif',writer='imagemagick')
+    ani.save('feedbackLin.gif',writer='imagemagick',fps=60)
