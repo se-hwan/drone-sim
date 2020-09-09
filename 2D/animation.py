@@ -10,7 +10,7 @@ def animate(states, drone, dt, time_end):
     n_points = int(time_end/dt) # number of points
 
     fig = plt.figure()
-    ax = plt.axes(xlim=(0,20), ylim=(0,20))
+    ax = plt.axes(xlim=(0,5), ylim=(0,5))
     droneFig = plt.Rectangle((0,0),drone.l_f+drone.l_r,drone.h,fc='k')
 
     def initPlot():
@@ -31,3 +31,4 @@ def animate(states, drone, dt, time_end):
 
     ani = animation.FuncAnimation(fig, draw, n_points-1, init_func = initPlot, blit=True,interval=10,repeat = True)
     plt.show()
+    ani.save('feedbackLin.gif',writer='imagemagick')

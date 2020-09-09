@@ -30,8 +30,8 @@ class Drone:
         y_dot = state[3]
         theta = state[4]
         theta_dot = state[5]
-        x_dot_new = x_dot + dt*(-theta*self.g) #(-theta*u[0]/self.m)
-        y_dot_new = y_dot + dt*(-self.g+u[0]/self.m)
+        x_dot_new = x_dot + dt*(-np.sin(theta)*u[0]/self.m) #(-theta*u[0]/self.m)
+        y_dot_new = y_dot + dt*(-self.g + np.cos(theta)*u[0]/self.m)
         theta_dot_new = theta_dot + dt*(u[1]/self.I)
         x_new = x + dt*x_dot_new
         y_new = y + dt*y_dot_new

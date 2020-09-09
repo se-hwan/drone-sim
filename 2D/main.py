@@ -19,7 +19,7 @@ n_states = 6 # number of states (x, xdot, y, ydot, theta, thetadot)
 n_inputs = 2 # number of inputs (f1, f2)
 
 # Simulation parameters
-dt = 0.005 # time steps for simulation
+dt = 0.01 # time steps for simulation
 time_end = 5. # duration of simulation
 t = np.arange(0,time_end+dt,dt)
 n_points = int(time_end/dt)
@@ -28,17 +28,17 @@ statesDes = np.zeros((n_states,n_points)) # desired state (default to 0)
 inputs = np.zeros((n_inputs,n_points)) # inputs over simulation time
 
 # Initialization
-state_0 = np.array([5,0,5,0,0,0]) # initial state
+state_0 = np.array([4,1,4,1,0,0]) # initial state
 #state_0 = drone.randStart(xMax, yMax) # random initial state with xMax, yMax
 drone = Drone(mass,l_f,l_r,h,w,state_0)
 states[:,0] = state_0
 
 # Set desired states over time
 for i in range(n_points):
-    statesDes[:,i]=np.array([10,0,10,0,0,0]) # (go to x=10, y=10, and stay stationary)
+    statesDes[:,i]=np.array([2,0,2,0,0,0]) # (go to x=10, y=10, and stay stationary)
 
 # Set gain matrix
-K = np.array([1,1,5,5,15,15]) # y, ydot, x, xdot, theta, thetadot
+K = np.array([2,2,5,5,20,20]) # y, ydot, x, xdot, theta, thetadot
 
 # Solve simulation
 for i in range(1,len(t)-1):
